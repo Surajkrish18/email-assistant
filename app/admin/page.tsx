@@ -105,7 +105,8 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 transition-colors">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 p-4 transition-all duration-700">
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-violet-500/5 to-blue-500/5 pointer-events-none"></div>
       <Header isAdminPage={true} /> {/* Use the new Header component and pass isAdminPage prop */}
       <div className="max-w-6xl mx-auto pt-20">
         {" "}
@@ -113,14 +114,15 @@ export default function AdminPage() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-12">
           <Settings className="h-8 w-8 text-indigo-600" />
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent transition-colors duration-300">
+          <h1 className="fluid-text font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent text-animate">
             Client Management
           </h1>
         </div>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {/* Add/Edit Client Form */}
-          <Card className="shadow-xl border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
-            <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-t-lg">
+          <Card className="glass-card shadow-2xl border-0 hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+            <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-t-xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-blue-500/20"></div>
               <CardTitle className="flex items-center gap-3 text-xl">
                 <Plus className="h-6 w-6" />
                 {isEditing ? "Edit Client" : "Add New Client"}
@@ -130,7 +132,7 @@ export default function AdminPage() {
               <div className="space-y-2">
                 <Label
                   htmlFor="name"
-                  className="text-sm font-semibold text-gray-700 dark:text-gray-300 transition-colors duration-300"
+                  className="text-sm font-semibold text-slate-700 dark:text-slate-300 transition-colors duration-300"
                 >
                   Client Name <span className="text-red-500">*</span>
                 </Label>
@@ -139,14 +141,14 @@ export default function AdminPage() {
                   placeholder="Enter client name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="border-gray-200 focus:border-indigo-400 focus:ring-indigo-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white transition-colors duration-300"
+                  className="glass-card border-slate-200 focus:border-indigo-400 focus:ring-indigo-400 dark:border-slate-600 dark:text-white transition-all duration-300 hover:shadow-md"
                 />
               </div>
 
               <div className="space-y-2">
                 <Label
                   htmlFor="technicalKnowledge"
-                  className="text-sm font-semibold text-gray-700 dark:text-gray-300 transition-colors duration-300"
+                  className="text-sm font-semibold text-slate-700 dark:text-slate-300 transition-colors duration-300"
                 >
                   Technical Knowledge Level <span className="text-red-500">*</span>
                 </Label>
@@ -154,7 +156,7 @@ export default function AdminPage() {
                   value={formData.technicalKnowledge.toString()}
                   onValueChange={(value) => setFormData({ ...formData, technicalKnowledge: Number.parseInt(value) })}
                 >
-                  <SelectTrigger className="border-gray-200 focus:border-indigo-400 focus:ring-indigo-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white transition-colors duration-300">
+                  <SelectTrigger className="glass-card border-slate-200 focus:border-indigo-400 focus:ring-indigo-400 dark:border-slate-600 dark:text-white transition-all duration-300 hover:shadow-md">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -170,7 +172,7 @@ export default function AdminPage() {
               <div className="space-y-2">
                 <Label
                   htmlFor="description"
-                  className="text-sm font-semibold text-gray-700 dark:text-gray-300 transition-colors duration-300"
+                  className="text-sm font-semibold text-slate-700 dark:text-slate-300 transition-colors duration-300"
                 >
                   Description <span className="text-gray-400">(Optional)</span>
                 </Label>
@@ -180,7 +182,7 @@ export default function AdminPage() {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={3}
-                  className="resize-none border-gray-200 focus:border-indigo-400 focus:ring-indigo-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white transition-colors duration-300"
+                  className="resize-none glass-card border-slate-200 focus:border-indigo-400 focus:ring-indigo-400 dark:border-slate-600 dark:text-white transition-all duration-300 hover:shadow-md"
                 />
               </div>
 
@@ -190,11 +192,11 @@ export default function AdminPage() {
                     <Button
                       onClick={handleUpdateClient}
                       disabled={!formData.name.trim()}
-                      className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+                      className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 hover:scale-[1.02]"
                     >
                       Update Client
                     </Button>
-                    <Button variant="outline" onClick={handleCancelEdit} className="flex-1 bg-transparent">
+                    <Button variant="outline" onClick={handleCancelEdit} className="flex-1 glass-card hover:bg-white/20 transition-all duration-300">
                       Cancel
                     </Button>
                   </>
@@ -202,7 +204,7 @@ export default function AdminPage() {
                   <Button
                     onClick={handleAddClient}
                     disabled={!formData.name.trim()}
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 hover:scale-[1.02]"
                   >
                     Add Client
                   </Button>
@@ -212,8 +214,9 @@ export default function AdminPage() {
           </Card>
 
           {/* Client List */}
-          <Card className="shadow-xl border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
-            <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-t-lg">
+          <Card className="glass-card shadow-2xl border-0 hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+            <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-t-xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-violet-500/20"></div>
               <CardTitle className="flex items-center gap-3 text-xl">
                 <Users className="h-6 w-6" />
                 Existing Clients ({clients.length})
@@ -221,10 +224,10 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent className="p-8">
               {clients.length === 0 ? (
-                <div className="text-center py-12 text-gray-500 dark:text-gray-400 transition-colors duration-300">
+                <div className="text-center py-12 text-slate-500 dark:text-slate-400 transition-colors duration-300">
                   <Users className="h-16 w-16 mx-auto mb-4 opacity-30" />
                   <h3 className="text-lg font-semibold mb-2">No clients yet</h3>
-                  <p className="text-gray-400">
+                  <p className="text-slate-400">
                     Add your first client to get started with personalized email redrafting
                   </p>
                 </div>
@@ -233,11 +236,11 @@ export default function AdminPage() {
                   {clients.map((client) => (
                     <div
                       key={client.id}
-                      className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl border border-gray-100 dark:border-gray-600 shadow-sm hover:shadow-md transition-shadow transition-colors duration-300"
+                      className="flex items-center justify-between p-4 glass-card rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]"
                     >
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-semibold text-gray-800 dark:text-gray-200 transition-colors duration-300">
+                          <h3 className="font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
                             {client.name}
                           </h3>
                           <Badge className={`${getTechnicalLevelColor(client.technicalKnowledge)} border`}>
@@ -245,7 +248,7 @@ export default function AdminPage() {
                           </Badge>
                         </div>
                         {client.description && (
-                          <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded-md">{client.description}</p>
+                          <p className="text-sm text-slate-600 glass-card p-2 rounded-md">{client.description}</p>
                         )}
                       </div>
                       <div className="flex gap-2 ml-4">
@@ -253,7 +256,7 @@ export default function AdminPage() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleEditClient(client)}
-                          className="hover:bg-indigo-50 hover:border-indigo-200"
+                          className="glass-card hover:bg-indigo-50 hover:border-indigo-200 transition-all duration-300"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -261,7 +264,7 @@ export default function AdminPage() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleDeleteClient(client.id)}
-                          className="hover:bg-red-50 hover:border-red-200 hover:text-red-600"
+                          className="glass-card hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-all duration-300"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -274,28 +277,28 @@ export default function AdminPage() {
           </Card>
         </div>
         {/* Technical Knowledge Guide */}
-        <Card className="mt-8 shadow-xl border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+        <Card className="mt-8 glass-card shadow-2xl border-0 hover:shadow-3xl transition-all duration-500">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-gray-800 dark:text-gray-200 transition-colors duration-300">
+            <CardTitle className="text-2xl font-bold text-slate-800 dark:text-slate-200 transition-colors duration-300">
               Technical Knowledge Level Guide
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 rounded-xl border border-red-200 dark:border-red-800 transition-colors duration-300">
+              <div className="p-6 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 rounded-xl border border-red-200 dark:border-red-800 transition-all duration-300 hover:scale-105">
                 <h4 className="font-bold text-red-800 dark:text-red-300 mb-3 text-lg">Beginner (1-2)</h4>
                 <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed transition-colors duration-300">
                   No technical background. Needs simple language, step-by-step instructions, and avoidance of technical
                   jargon.
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-xl border border-yellow-200 dark:border-yellow-800 transition-colors duration-300">
+              <div className="p-6 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-xl border border-yellow-200 dark:border-yellow-800 transition-all duration-300 hover:scale-105">
                 <h4 className="font-bold text-yellow-800 dark:text-yellow-300 mb-3 text-lg">Intermediate (3-4)</h4>
                 <p className="text-sm text-yellow-700 dark:text-yellow-400 leading-relaxed transition-colors duration-300">
                   Some technical understanding. Can handle moderate technical terms with brief explanations.
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl border border-green-200 dark:border-green-800 transition-colors duration-300">
+              <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl border border-green-200 dark:border-green-800 transition-all duration-300 hover:scale-105">
                 <h4 className="font-bold text-green-800 dark:text-green-300 mb-3 text-lg">Advanced (5)</h4>
                 <p className="text-sm text-green-700 dark:text-green-400 leading-relaxed transition-colors duration-300">
                   High technical expertise. Comfortable with technical language, APIs, and complex concepts.
