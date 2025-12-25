@@ -5,12 +5,13 @@ export const maxDuration = 30
 
 export async function POST(req: Request) {
   try {
-    const { originalEmail, context, prompt, client } = await req.json()
+    const { originalEmail, context, prompt, client, bilingualOutput } = await req.json()
 
     console.log("API received request:", {
       hasEmail: !!originalEmail,
       hasPrompt: !!prompt,
       hasClient: !!client,
+      bilingualOutput: !!bilingualOutput,
       emailLength: originalEmail?.length || 0,
     })
 
@@ -49,7 +50,7 @@ Guidelines:
 - Follow the user's instructions precisely
 - Maintain the core message and intent of the original email
 - Ensure the redrafted email is professional and well-structured
-- Only provide the redrafted email - no analysis, scores, or explanations
+${bilingualOutput ? "- Provide TWO complete versions of the redrafted email: one in English and one in Portuguese (Brazil)\n- Format: First show the English version with a clear heading '=== ENGLISH VERSION ===', then show the Portuguese version with heading '=== VERSÃO EM PORTUGUÊS ==='\n- Both versions should be complete, professional redrafts following all the instructions" : "- Only provide the redrafted email - no analysis, scores, or explanations"}
 - Consider the recipient's technical knowledge level when choosing language and explanations`
 
     console.log("Calling Bedrock with system prompt length:", systemPrompt.length)
@@ -67,7 +68,7 @@ Original Email:
 ${originalEmail}
 """
 
-Provide only the redrafted email.`,
+${bilingualOutput ? "Provide both English and Portuguese versions with clear headings as specified in the guidelines." : "Provide only the redrafted email."}`,
         },
       ],
     })

@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MessageSquare, CheckCircle, Sparkles, Zap, Brain, Copy, Check } from "lucide-react"
+import { Checkbox } from "@/components/ui/checkbox"
+import { MessageSquare, CheckCircle, Sparkles, Zap, Brain, Copy, Check, Languages } from "lucide-react"
 import { Header } from "@/components/header"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 
@@ -26,6 +27,7 @@ export default function EmailReviewChatbot() {
   const [clients, setClients] = useState<Client[]>([])
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [result, setResult] = useState("")
+  const [bilingualOutput, setBilingualOutput] = useState(false)
   const { copy, copied, reset: resetCopyStatus } = useCopyToClipboard()
 
   // Load clients from database on component mount
@@ -86,6 +88,7 @@ export default function EmailReviewChatbot() {
           context,
           prompt,
           client: selectedClientData,
+          bilingualOutput,
         }),
       })
 
@@ -227,6 +230,24 @@ export default function EmailReviewChatbot() {
                   rows={4}
                   className="resize-none border-gray-200/50 focus:border-purple-400 focus:ring-purple-400/20 dark:border-gray-600/50 dark:bg-gray-700/50 dark:text-white transition-all duration-300 backdrop-blur-sm bg-white/50"
                 />
+              </div>
+
+              <div className="flex items-center space-x-2 p-4 bg-gradient-to-r from-blue-50/80 to-cyan-50/80 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg border border-blue-200/50 dark:border-blue-800/50 backdrop-blur-sm">
+                <Checkbox
+                  id="bilingual"
+                  checked={bilingualOutput}
+                  onCheckedChange={(checked) => setBilingualOutput(checked as boolean)}
+                  className="border-blue-400 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white"
+                />
+                <div className="flex items-center gap-2">
+                  <Languages className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  <Label
+                    htmlFor="bilingual"
+                    className="text-sm font-semibold text-blue-700 dark:text-blue-300 cursor-pointer"
+                  >
+                    Bilingual Output (English + Portuguese)
+                  </Label>
+                </div>
               </div>
 
               <div className="space-y-2">
